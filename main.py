@@ -5,7 +5,6 @@ import os
 import yaml
 import argparse
 
-
 def setup():
     # Ask the user for the path to save the screenshots
     save_path = input("Enter the path to save the screenshots: ")
@@ -21,7 +20,6 @@ def setup():
         yaml.dump(config, file)
 
     print("Setup completed successfully.")
-
 
 def take_screenshots(save_path, interval, verbose):
     # Create a folder with a timestamp
@@ -47,14 +45,13 @@ def take_screenshots(save_path, interval, verbose):
             screenshot.save(file_name)
 
             if verbose:
-                print(f"Screenshot {count} saved as {file_name}")
+                print(f"Screenshot {count} saved as {file_name}", flush=True)
 
             count += 1
             time.sleep(interval)
 
     except KeyboardInterrupt:
         print("Screenshot capturing stopped.")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Python application to capture screenshots at a specified interval.")
