@@ -3,6 +3,8 @@ import datetime
 import time
 import os
 import yaml
+import argparse
+
 
 def setup():
     # Ask the user for the path to save the screenshots
@@ -20,7 +22,8 @@ def setup():
 
     print("Setup completed successfully.")
 
-def take_screenshots(save_path, interval):
+
+def take_screenshots(save_path, interval, verbose):
     # Create a folder with a timestamp
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
@@ -42,7 +45,9 @@ def take_screenshots(save_path, interval):
             # Save the screenshot in the folder
             file_name = os.path.join(folder_name, f"screenshot_{screenshot_timestamp}.png")
             screenshot.save(file_name)
-            print(f"Screenshot {count} saved as {file_name}")
+
+            if verbose:
+                print(f"Screenshot {count} saved as {file_name}")
 
             count += 1
             time.sleep(interval)
@@ -50,7 +55,12 @@ def take_screenshots(save_path, interval):
     except KeyboardInterrupt:
         print("Screenshot capturing stopped.")
 
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Python application to capture screenshots at a specified interval.")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbosity to show each saved file")
+    args = parser.parse_args()
+
     # Check if the setup has been completed
     try:
         with open("config.yaml", "r") as file:
@@ -71,4 +81,4 @@ if __name__ == "__main__":
             print("Invalid configuration. Make sure 'save_path' is specified and 'interval' is a positive number.")
             exit(1)
 
-        take_screenshots(save_path, interval)
+        take_screenshots(save_path, interval, args.verbose)
