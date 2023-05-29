@@ -29,6 +29,25 @@ My Screenshot App is a Python application that allows you to capture screenshots
    pip install -r requirements.txt
    ```
 
+##Packaging
+
+Open a terminal and navigate to the root directory of your project (my_screenshot_app).
+Run the following command to create a distribution package:
+   ```bash
+  python setup.py sdist
+   ```
+
+This will create a dist directory containing the distribution package (tar.gz or zip file).
+
+To install your packaged application, you can use pip with the path to the distribution package. For example:
+   ```bash
+  pip install dist/my_screenshot_app-1.0.tar.gz
+   ```
+
+Once installed, you can use the my_screenshot_app command in the terminal to run your application:
+   ```bash
+  my_screenshot_app
+   ```
 
 ## Usage
 
