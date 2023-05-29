@@ -12,3 +12,5 @@ myenv/
 
 # Ignore files
 config.yaml
+/dist/
+/my_screenshot_app.egg-info/

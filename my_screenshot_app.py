@@ -3,7 +3,8 @@ import datetime
 import time
 import os
 import yaml
-import argparse
+import click
+
 
 def setup():
     # Ask the user for the path to save the screenshots
@@ -53,11 +54,11 @@ def take_screenshots(save_path, interval, verbose):
     except KeyboardInterrupt:
         print("Screenshot capturing stopped.")
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Python application to capture screenshots at a specified interval.")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbosity to show each saved file")
-    args = parser.parse_args()
-
+@click.command()
+@click.option('--save-path', prompt='Enter the path to save the screenshots')
+@click.option('--interval', prompt='Enter the interval between screenshots (in seconds)', type=float)
+@click.option('--verbose', is_flag=True, help='Enable verbosity to show each saved file')
+def main(save_path, interval, verbose):
     # Check if the setup has been completed
     try:
         with open("config.yaml", "r") as file:
@@ -78,4 +79,17 @@ if __name__ == "__main__":
             print("Invalid configuration. Make sure 'save_path' is specified and 'interval' is a positive number.")
             exit(1)
 
-        take_screenshots(save_path, interval, args.verbose)
+        click.echo("Starting the screenshot app...")
+        click.echo(f"Save path: {save_path}")
+        click.echo(f"Interval: {interval} seconds")
+        click.echo(f"Verbosity: {'Enabled' if verbose else 'Disabled'}")
+        click.echo("Press Ctrl+C to stop.")
+
+        # Call the function to take screenshots
+        take_screenshots(save_path, interval, verbose)
+
+
+if __name__ == "__main__":
+    main()
+
+
