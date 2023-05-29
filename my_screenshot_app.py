@@ -55,10 +55,8 @@ def take_screenshots(save_path, interval, verbose):
         print("Screenshot capturing stopped.")
 
 @click.command()
-@click.option('--save-path', prompt='Enter the path to save the screenshots')
-@click.option('--interval', prompt='Enter the interval between screenshots (in seconds)', type=float)
 @click.option('--verbose', is_flag=True, help='Enable verbosity to show each saved file')
-def main(save_path, interval, verbose):
+def main(verbose):
     # Check if the setup has been completed
     try:
         with open("config.yaml", "r") as file:
